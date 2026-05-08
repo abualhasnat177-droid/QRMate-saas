@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String   @id @default(uuid())
+  email               String   @unique
+  password            String?  // Optional for magic-link/social-first
+  name                String?
+  avatarUrl           String?
+  provider            String   @default("email") // email, google, apple, microsoft
+  providerId          String?  // ID from social provider
+  plan                Plan     @default(FREE)
+  
+  // MFA
+  mfaEnabled          Boolean  @default(false)
+  mfaSecretEncrypted  String?
+  mfaBackupCodes      String[] // Array of hashes
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  qrCodes             QRCode[]
+  apiKeys             ApiKey[]
+  sessions            Session[]
+  passkeys            PasskeyCredential[]
+}
+
+enum Plan {
+  FREE
+  PRO
+  BUSINESS
+}
+
+model QRCode {
+  id          String   @id @default(uuid())
+  title       String
+  qrType      String   @default("url")
+  destination String
+  isDynamic   Boolean  @default(false)
+  shortCode   String?  @unique
+  design      Json?    
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  scans       Scan[]
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Scan {
+  id         String   @id @default(uuid())
+  qrCodeId   String
+  qrCode     QRCode   @relation(fields: [qrCodeId], references: [id], onDelete: Cascade)
+  ipHash     String?
+  userAgent  String?
+  country    String?
+  city       String?
+  deviceType String?  // Mobile, Desktop, Tablet
+  os         String?  // iOS, Android, Windows, macOS, Linux, Other
+  browser    String?  // Chrome, Safari, Firefox, Edge, Other
+  referrer   String?
+  scannedAt  DateTime @default(now())
+
+  @@index([qrCodeId, scannedAt])
+}
+
+model ApiKey {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String   @default("Default")
+  keyHash     String   @unique
+  keyPrefix   String   // First 8 chars for display: "qrm_abc1..."
+  callsUsed   Int      @default(0)
+  callsLimit  Int      @default(1000)
+  lastUsedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([userId])
+}
+
+model MagicLinkToken {
+  id          String   @id @default(uuid())
+  email       String
+  tokenHash   String   @unique
+  expiresAt   DateTime
+  used        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([email])
+}
+
+model PasskeyCredential {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialId String   @unique
+  publicKey    Bytes
+  counter      BigInt
+  deviceName   String?
+  createdAt    DateTime @default(now())
+  lastUsedAt   DateTime?
+
+  @@index([userId])
+}
+
+model Session {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshTokenHash String   @unique
+  expiresAt        DateTime
+  ipHash           String?
+  userAgent        String?
+  createdAt        DateTime @default(now())
+  lastUsedAt       DateTime @default(now())
+
+  @@index([userId])
+}
+
+model SSOConfig {
+  id          String   @id @default(uuid())
+  teamId      String   @unique
+  idpMetadata String   @db.Text
+  spEntityId  String
+  domain      String   @unique
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}

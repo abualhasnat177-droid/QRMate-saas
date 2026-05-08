@@ -1,0 +1,17 @@
+{
+  "name": "qrmate-saas",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "QR Code SaaS Application",
+  "scripts": {
+    "dev:landing": "cd landing-page && npm run dev -- -p 3000",
+    "dev:user": "cd user-frontend && npm run dev -- -p 3001",
+    "dev:admin": "cd admin-frontend && npm run dev -- -p 3002",
+    "dev:backend": "cd backend && npx tsx server.ts",
+    "dev:all": "npx concurrently \"npm run dev:landing\" \"npm run dev:user\" \"npm run dev:admin\" \"npm run dev:backend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "tailwindcss": "^4.2.4"
+  }
+}

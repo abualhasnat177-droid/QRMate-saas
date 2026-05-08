@@ -1,0 +1,66 @@
+:root {
+  /* ── Fonts ──────────────────────────────────────── */
+  --font-display: 'Sora', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Brand palette ─── Ice Latte + Mint ────────── */
+  --color-brand-50:   #f0f9f9;
+  --color-brand-100:  #d9f2f1;
+  --color-brand-200:  #b3e5e3;
+  --color-brand-400:  #33c4be;
+  --color-brand-500:  #00A19B;   /* primary CTA — The Mint */
+  --color-brand-600:  #008A85;   /* CTA hover   */
+  --color-brand-800:  #006460;
+
+  /* ── Accent / success ───────────────────────────── */
+  --color-accent-500: #00A19B;
+  --color-accent-600: #008A85;
+
+  /* ── Semantic ───────────────────────────────────── */
+  --color-error:      #EF4444;
+  --color-warning:    #F97316;
+  --color-success:    #10b981;
+
+  /* ── Radius ─────────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* ── Light mode tokens ── Ice Latte surfaces ───── */
+  --bg-primary:       #F5F1EB;
+  --bg-secondary:     #EDE8E0;
+  --bg-tertiary:      #E4DDD3;
+  --bg-accent:        #f0f9f9;
+
+  --text-primary:     #2D2A26;
+  --text-secondary:   #6B6560;
+  --text-muted:       #9C958E;
+
+  --brand-default:    #00A19B;
+  --brand-hover:      #008A85;
+  --brand-subtle:     #33c4be;
+
+  --border-default:   #D4CCC1;
+  --border-subtle:    #E4DDD3;
+}
+
+/* ── Dark mode (toggle via data-theme="dark") ─────── */
+[data-theme="dark"] {
+  --bg-primary:       #0A0A0A;
+  --bg-secondary:     #121212;
+  --bg-tertiary:      #1E1E1E;
+  --bg-accent:        #0A1E1E;
+
+  --text-primary:     #F1F5F9;
+  --text-secondary:   #94A3B8;
+  --text-muted:       #64748B;
+
+  --brand-default:    #00A19B;
+  --brand-hover:      #33c4be;
+  --brand-subtle:     #008A85;
+
+  --border-default:   #2E2E2E;
+  --border-subtle:    #1E1E1E;
+}
