@@ -25,7 +25,7 @@ export default function LoginForm() {
     setError('');
     
     try {
-      const res = await fetch('http://localhost:8080/auth/magic-link', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/auth/magic-link`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -41,7 +41,7 @@ export default function LoginForm() {
   };
 
   const handleSocial = (provider: string) => {
-    window.location.href = `http://localhost:8080/auth/${provider}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/auth/${provider}`;
   };
 
   if (sent) {

@@ -20,7 +20,7 @@ export default function LoginPage() {
     setError('');
     if (provider === 'google') {
       // Redirect to the real backend Google OAuth route
-      window.location.href = 'http://localhost:8080/auth/google';
+      window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/auth/google`;
       return;
     }
     // Github fallback or other providers...

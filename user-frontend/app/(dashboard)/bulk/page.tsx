@@ -38,7 +38,7 @@ export default function BulkPage() {
       interval = setInterval(async () => {
         const token = localStorage.getItem('token');
         try {
-          const res = await fetch(`http://localhost:8080/api/qr/bulk/${jobId}/status`, {
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/bulk/${jobId}/status`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           const data = await res.json();
@@ -102,7 +102,7 @@ export default function BulkPage() {
     setIsProcessing(true); setProgress(0); setErrors([]); setJobStatus('waiting');
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:8080/api/qr/bulk', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/bulk`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ rows }),
@@ -228,7 +228,7 @@ export default function BulkPage() {
           <h3 className={`text-xl font-bold mb-2 ${isDark ? 'text-emerald-400' : 'text-emerald-900'}`}>Success! Your ZIP is ready</h3>
           <p className={`text-sm mb-6 ${isDark ? 'text-emerald-400/70' : 'text-emerald-700/70'}`}>We&apos;ve also sent a download link to your email.</p>
           <a 
-            href={`http://localhost:8080${downloadUrl}`} 
+            href={`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${downloadUrl}`} 
             className="inline-flex items-center gap-2 bg-emerald-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20"
           >
             <Download size={16} /> Download ZIP Archive

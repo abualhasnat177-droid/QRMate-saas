@@ -27,10 +27,11 @@ export default function DashboardPage() {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
       if (!token) return;
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}`;
       try {
         const [statsRes, qrsRes] = await Promise.all([
-          fetch('http://localhost:8080/api/user/stats', { headers: { 'Authorization': `Bearer ${token}` } }),
-          fetch('http://localhost:8080/api/qr/my-codes', { headers: { 'Authorization': `Bearer ${token}` } })
+          fetch(`${API_URL}/api/user/stats`, { headers: { 'Authorization': `Bearer ${token}` } }),
+          fetch(`${API_URL}/api/qr/my-codes`, { headers: { 'Authorization': `Bearer ${token}` } })
         ]);
         const statsData = await statsRes.json();
         const qrsData = await qrsRes.json();

@@ -39,7 +39,7 @@ export default function ApiSettingsPage() {
     setLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:8080/api/user/keys', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/user/keys`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -64,7 +64,7 @@ export default function ApiSettingsPage() {
     setCreating(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:8080/api/user/keys', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/user/keys`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ name: newKeyName }),
@@ -83,7 +83,7 @@ export default function ApiSettingsPage() {
     if (!confirm('Are you sure you want to revoke this API key? Applications using it will stop working.')) return;
     const token = localStorage.getItem('token');
     try {
-      await fetch(`http://localhost:8080/api/user/keys/${id}`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/user/keys/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

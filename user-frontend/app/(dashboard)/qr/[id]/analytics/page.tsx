@@ -47,7 +47,7 @@ export default function QRAnalyticsPage() {
   const handleExport = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`http://localhost:8080/api/qr/${qrId}/analytics/export`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/${qrId}/analytics/export`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const blob = await res.blob();
@@ -67,7 +67,7 @@ export default function QRAnalyticsPage() {
       const token = localStorage.getItem('token');
       if (!token) return;
       try {
-        const res = await fetch(`http://localhost:8080/api/qr/${qrId}/analytics?range=${range}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/${qrId}/analytics?range=${range}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const json = await res.json();

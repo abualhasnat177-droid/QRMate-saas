@@ -22,7 +22,7 @@ export default function AnalyticsPage() {
     setLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`http://localhost:8080/api/user/analytics?range=${range}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/user/analytics?range=${range}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const json = await res.json();

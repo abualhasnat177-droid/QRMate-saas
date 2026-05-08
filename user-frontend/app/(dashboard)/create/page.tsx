@@ -134,7 +134,7 @@ export default function CreateQRPage() {
     setIsGenerating(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:8080/api/qr/generate', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/generate`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ export default function CreateQRPage() {
     setIsSaving(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:8080/api/qr/save', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/qr/save`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
