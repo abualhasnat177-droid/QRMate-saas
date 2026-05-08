@@ -96,12 +96,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Sidebar */}
       <aside className={`fixed top-0 left-0 h-screen z-50 transition-all duration-300 ${isSidebarOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'} border-r ${isDark ? 'border-[#2e2e2e] bg-[#0a0a0a]' : 'border-[#D4CCC1] bg-[#F5F1EB]'}`}>
         <div className="h-full flex flex-col">
-          <Link href="http://localhost:3000" className="p-5 flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <a href="/" className="p-5 flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center shadow-sm">
               <QrCode size={24} className="text-white" />
             </div>
             {isSidebarOpen && <span className={`font-bold text-xl tracking-tight ${isDark ? 'text-[#f1f5f9]' : 'text-[#2D2A26]'}`}>QRMate</span>}
-          </Link>
+          </a>
 
           <nav className="flex-1 px-3 space-y-1 mt-4">
             {NAV_ITEMS.map((item) => {

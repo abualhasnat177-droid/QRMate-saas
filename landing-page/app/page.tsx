@@ -59,7 +59,8 @@ function PublicStats({ isDark }: { isDark: boolean }) {
   const [stats, setStats] = useState({ totalQRs: 12842, totalScans: 452109 });
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/stats/public')
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    fetch(`${apiUrl}/api/stats/public`)
       .then(res => res.json())
       .then(data => {
         if (data && typeof data.qrCodesGenerated === 'number' && typeof data.totalScans === 'number') {
@@ -182,18 +183,18 @@ export default function LandingPage() {
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
 
-            <Link 
+            <a 
               href="/login" 
               className={`text-sm font-bold ${isDark ? 'text-[#f1f5f9] border-[#2e2e2e] hover:bg-[#F5F1EB]/5' : 'text-[#2D2A26] border-[#D4CCC1] hover:bg-[#EDE8E0]'} px-6 py-2.5 rounded-full border transition-all shadow-sm`}
             >
               Sign In
-            </Link>
-            <Link 
+            </a>
+            <a 
               href="/signup" 
               className={`group relative text-sm font-bold text-white px-8 py-3 rounded-full ${isDark ? 'bg-teal-600' : 'bg-[#2D2A26]'} hover:opacity-90 transition-all shadow-xl shadow-teal-900/10 overflow-hidden`}
             >
               Get Started
-            </Link>
+            </a>
           </div>
  
           <button className={`lg:hidden ${isDark ? 'text-[#f1f5f9]' : 'text-[#2D2A26]'} p-2`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -224,8 +225,8 @@ export default function LandingPage() {
                 </Link>
               ))}
               <hr className={isDark ? 'border-white/5' : 'border-[#E4DDD3]'} />
-              <Link href="/login" className={`text-xl font-bold ${isDark ? 'text-white' : 'text-[#2D2A26]'}`}>Sign In</Link>
-              <Link href="/signup" className="py-5 bg-teal-600 text-white rounded-2xl text-xl font-black shadow-xl">Get Started</Link>
+              <a href="/login" className={`text-xl font-bold ${isDark ? 'text-white' : 'text-[#2D2A26]'}`}>Sign In</a>
+              <a href="/signup" className="py-5 bg-teal-600 text-white rounded-2xl text-xl font-black shadow-xl">Get Started</a>
             </div>
           </motion.div>
         )}
@@ -307,7 +308,7 @@ export default function LandingPage() {
                   { icon: <Smartphone size={20} />, label: 'PDF', href: '/dashboard/create?type=pdf' },
                   { icon: <ArrowRight size={20} />, label: 'More', href: '/dashboard/create' },
                 ].map((option, i) => (
-                  <Link 
+                  <a 
                     key={i}
                     href={option.href}
                     className={`group flex flex-col items-center justify-center p-6 rounded-2xl border transition-all duration-300 ${isDark ? 'bg-[#1e1e1e] border-white/5 hover:bg-teal-600 hover:border-teal-500' : 'bg-[#F5F1EB] border-[#E4DDD3] hover:border-teal-600 hover:shadow-xl hover:shadow-teal-500/10'}`}
@@ -318,7 +319,7 @@ export default function LandingPage() {
                     <span className={`text-xs font-black uppercase tracking-widest ${isDark ? 'text-[#9C958E] group-hover:text-white' : 'text-[#6B6560]'}`}>
                       {option.label}
                     </span>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </motion.div>

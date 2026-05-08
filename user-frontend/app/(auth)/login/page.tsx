@@ -50,12 +50,12 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#EDE8E0] flex flex-col justify-center items-center p-6">
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <Link href="http://localhost:3000" className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight text-[#2D2A26] mb-8 hover:opacity-80 transition-opacity">
+          <a href="/" className="inline-flex items-center gap-2 font-bold text-2xl tracking-tight text-[#2D2A26] mb-8 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center shadow-sm">
               <QrCode size={18} className="text-white" />
             </div>
             QRMate
-          </Link>
+          </a>
           <h1 className="text-3xl font-bold text-[#2D2A26] mb-2">Welcome Back</h1>
           <p className="text-[#6B6560] text-sm">Sign in to your account to continue.</p>
         </div>

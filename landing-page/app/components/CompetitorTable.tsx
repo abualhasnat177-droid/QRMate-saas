@@ -90,13 +90,13 @@ export default function CompetitorTable({ isDark }: CompetitorTableProps) {
                 If you&apos;re paying for a QR code buried inside a design suite, there&apos;s a better way. Same result. Focused product. A fraction of the price.
               </p>
             </div>
-            <Link
-              href="http://localhost:3001/signup"
+            <a
+              href="/signup"
               className="flex items-center gap-2 bg-teal-600 text-white px-8 py-4 rounded-xl font-black text-sm hover:bg-teal-700 transition-all shadow-xl shadow-teal-600/20 whitespace-nowrap hover:scale-105"
             >
               Start free — no credit card
               <ArrowRight size={16} />
-            </Link>
+            </a>
           </div>
         </motion.div>
       </div>

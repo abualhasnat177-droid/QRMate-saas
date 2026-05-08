@@ -159,7 +159,7 @@ export default function LandingPricing({ isDark }: LandingPricingProps) {
               </ul>
 
               <a
-                href={`${plan.buttonHref}${isAnnual ? '&period=yearly' : '&period=monthly'}`}
+                href={`${plan.buttonHref}${plan.buttonHref.includes('?') ? '&' : '?'}period=${isAnnual ? 'yearly' : 'monthly'}`}
                 className={`w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${plan.highlight ? 'bg-teal-600 text-white hover:bg-teal-700 shadow-xl shadow-teal-600/30 hover:scale-[1.02]' : (isDark ? 'bg-[#F5F1EB]/5 text-white hover:bg-[#F5F1EB]/10' : 'bg-[#2D2A26] text-white hover:bg-[#3D3833]')}`}
               >
                 {plan.buttonText}
