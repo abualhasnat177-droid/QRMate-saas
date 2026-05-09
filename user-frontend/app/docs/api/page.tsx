@@ -59,15 +59,17 @@ export default function ApiDocsPage() {
     setTimeout(() => setCopied(null), 2000);
   };
 
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+
   const getSnippet = (endpoint: typeof ENDPOINTS[0]) => {
     if (selectedLang === 'curl') {
-      return `curl -X ${endpoint.method} `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${endpoint.path}` \\
+      return `curl -X ${endpoint.method} "${API_BASE}${endpoint.path}" \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
-  -H "Content-Type: application/json" ${endpoint.body ? `\\
+  -H "Content-Type: application/json"${endpoint.body ? ` \\
   -d '${endpoint.body}'` : ''}`;
     }
     if (selectedLang === 'js') {
-      return `const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${endpoint.path}`, {
+      return `const res = await fetch("${API_BASE}${endpoint.path}", {
   method: "${endpoint.method}",
   headers: {
     "Authorization": "Bearer YOUR_API_KEY",
@@ -85,7 +87,7 @@ headers = {
 }
 
 response = requests.${endpoint.method.toLowerCase()}(
-    `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${endpoint.path}`,
+    "${API_BASE}${endpoint.path}",
     headers=headers${endpoint.body ? `,
     json=${endpoint.body}` : ''}
 )
@@ -107,7 +109,7 @@ print(response.json())`;
             Integrate our high-performance QR engine into your applications with our simple, powerful REST API.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-             <a href=`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/docs` target="_blank" className="px-8 py-4 bg-teal-600 text-white rounded-2xl font-bold hover:bg-teal-700 transition-all shadow-xl shadow-teal-600/20">
+             <a href={`${API_BASE}/api/docs`} target="_blank" className="px-8 py-4 bg-teal-600 text-white rounded-2xl font-bold hover:bg-teal-700 transition-all shadow-xl shadow-teal-600/20">
                Interactive Swagger UI
              </a>
              <a href="/dashboard/settings/api" className={`px-8 py-4 rounded-2xl font-bold border transition-all ${isDark ? 'bg-[#F5F1EB]/5 border-white/10 hover:bg-[#F5F1EB]/10' : 'bg-[#F5F1EB] border-[#D4CCC1] hover:bg-[#EDE8E0]'}`}>
@@ -233,7 +235,7 @@ print(response.json())`;
                <p className={`text-sm mb-8 max-w-md mx-auto ${isDark ? 'text-[#9C958E]' : 'text-[#6B6560]'}`}>
                  Use our interactive API Explorer to test requests directly from your browser with your active session.
                </p>
-               <a href=`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/docs` target="_blank" className="inline-flex items-center gap-2 bg-teal-600 text-white px-10 py-4 rounded-2xl font-bold text-sm hover:bg-teal-700 transition-all shadow-2xl shadow-teal-600/20">
+               <a href={`${API_BASE}/api/docs`} target="_blank" className="inline-flex items-center gap-2 bg-teal-600 text-white px-10 py-4 rounded-2xl font-bold text-sm hover:bg-teal-700 transition-all shadow-2xl shadow-teal-600/20">
                  Launch API Explorer <Zap size={16} />
                </a>
             </div>

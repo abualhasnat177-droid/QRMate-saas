@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from 'react';
 import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { RefreshCw } from 'lucide-react';
 
-export default function AuthSuccess() {
+function AuthSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -42,5 +43,24 @@ export default function AuthSuccess() {
         <p className="text-[#6B6560] text-sm">Completing your secure login to QRMate.</p>
       </div>
     </div>
+  );
+}
+
+export default function AuthSuccess() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-[#EDE8E0] flex flex-col items-center justify-center">
+          <div className="text-center space-y-4">
+            <div className="flex justify-center">
+              <RefreshCw size={40} className="animate-spin text-teal-600" />
+            </div>
+            <h1 className="text-xl font-bold text-[#2D2A26]">Loading...</h1>
+          </div>
+        </div>
+      }
+    >
+      <AuthSuccessContent />
+    </Suspense>
   );
 }
